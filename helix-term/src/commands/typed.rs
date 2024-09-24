@@ -1814,15 +1814,7 @@ fn update_goto_line_number_preview(
 
     let scrolloff = cx.editor.config().scrolloff;
     let line = args[0].parse::<usize>()?;
-    goto_line_without_jumplist(
-        cx.editor,
-        NonZeroUsize::new(line),
-        if cx.editor.mode == Mode::Select {
-            Movement::Extend
-        } else {
-            Movement::Move
-        },
-    );
+    goto_line_without_jumplist(cx.editor, NonZeroUsize::new(line), cx.editor.mode.into());
 
     let (view, doc) = current!(cx.editor);
     view.ensure_cursor_in_view(doc, scrolloff);
